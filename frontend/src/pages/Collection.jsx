@@ -10,8 +10,9 @@ const Collection = () => {
   return (
     <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t'>
          {/* Creating Filter options */}
-         <div className='min-w-60'>
-          <p className='my-2 text-xl flex items-center cursor-pointer gap-2'>FILTERS
+         <div className='min-w-60'> 
+          {/* if we click on filters then it will toggle showFilter value and we can toggle the options on small screen */}
+          <p onClick = {() => setShowFilter(!showFilter)}className='my-2 text-xl flex items-center cursor-pointer gap-2'>FILTERS
              <img className = {`h-3 sm:hidden ${showFilter ? 'rotate-90' : ''}`}src= {assets.dropdown_icon} alt="" />
           </p> 
           {/* Category Filter */}
