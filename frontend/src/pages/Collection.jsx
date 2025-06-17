@@ -24,6 +24,15 @@ const Collection = () => {
       setCategory(prev => [...prev, e.target.value]);
     }
   }
+ 
+  const toggleSubCategory = (e) => {
+    if(subCategory.includes(e.target.value)){
+      setSubCategory(prev => prev.filter(item => item !== e.target.value));
+    } else {
+      setSubCategory(prev => [...prev, e.target.value]);
+    }
+  }
+
   
   //whenever this component is loaded this function is executed
 
@@ -32,8 +41,8 @@ const Collection = () => {
     }, []);
 
 useEffect(() => {
-    console.log(category);
-   }, [category]);
+    console.log(subCategory);
+   }, [subCategory]);
   return (
     <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t'>
          {/* Creating Filter options */}
@@ -69,19 +78,19 @@ useEffect(() => {
             <p className='mb-3 text-sm font-medium'>TYPE</p>
             <div className='flex fex-col gap-2 text-sm font-light text-gray-700'>
                  <p className='flex gap-2'>
-                   <input type="checkbox" name="" id="" className='w-3' value = {'Topwear'}/>Topwear
+                   <input type="checkbox" name="" id="" className='w-3' value = {'Topwear'} onChange={toggleSubCategory}/>Topwear
                  </p>
             </div>
 
             <div className='flex fex-col gap-2 text-sm font-light text-gray-700'>
                  <p className='flex gap-2'>
-                   <input type="checkbox" name="" id="" className='w-3' value = {'Bottomwear'}/>Bottomwear
+                   <input type="checkbox" name="" id="" className='w-3' value = {'Bottomwear'} onChange={toggleSubCategory}/>Bottomwear
                  </p>
             </div>
 
             <div className='flex fex-col gap-2 text-sm font-light text-gray-700'>
                  <p className='flex gap-2'>
-                   <input type="checkbox" name="" id="" className='w-3' value = {'Winterwear'}/>Winterwear
+                   <input type="checkbox" name="" id="" className='w-3' value = {'Winterwear'} onChange={toggleSubCategory}/>Winterwear
                  </p>
             </div>
           </div>
