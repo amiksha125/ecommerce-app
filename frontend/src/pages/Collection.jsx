@@ -11,7 +11,7 @@ const Collection = () => {
   const [showFilter, setShowFilter] = useState(false);
   //for mapping products
   const [filterProduct, setFilterProduct] = useState([]);
-  //apply filter, all the category and type filterdata will be store in these array
+  // all the category and type filterdata will be store in these array
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
 
@@ -33,6 +33,15 @@ const Collection = () => {
     }
   }
 
+  const applyFilter = () => {
+    //create copy of all selected category products
+    let productsCopy = products.slice();
+    if(category.length > 0){
+      productsCopy = productsCopy.filter(item => category.includes(item.category))
+    }
+
+    setFilterProduct(productsCopy);
+  }
   
   //whenever this component is loaded this function is executed
 
@@ -40,9 +49,15 @@ const Collection = () => {
     setFilterProduct(products);
     }, []);
 
+// useEffect(() => {
+//     console.log(subCategory);
+//    }, [subCategory]);
+
+  //run applyFilter function whenever category or subcategory filter is updated using effects
+
 useEffect(() => {
-    console.log(subCategory);
-   }, [subCategory]);
+  applyFilter();
+}, [category, subCategory])
   return (
     <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t'>
          {/* Creating Filter options */}
