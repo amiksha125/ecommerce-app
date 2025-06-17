@@ -6,7 +6,7 @@ import ProductItem from '../components/ProductItem';
 
 const Collection = () => {
 
-  const {products} = useContext(ShopContext)
+  const {products, search, showSearch} = useContext(ShopContext)
   // create state variable
   const [showFilter, setShowFilter] = useState(false);
   //for mapping products
@@ -37,6 +37,12 @@ const Collection = () => {
   const applyFilter = () => {
     //create copy of all selected category products
     let productsCopy = products.slice();
+    
+    //search products
+    if(showSearch && search){
+      productsCopy = productsCopy.filter(item => item.name.toLowerCase().includes(search.toLowerCase()))
+    }
+
     if(category.length > 0){
       productsCopy = productsCopy.filter(item => category.includes(item.category))
     }
@@ -77,7 +83,7 @@ const Collection = () => {
 
 useEffect(() => {
   applyFilter();
-}, [category, subCategory])
+}, [category, subCategory, search, showSearch]) //whenever these dependency array elem value changes applyFilter() is called
 
 useEffect(() => {
   sortProduct();
