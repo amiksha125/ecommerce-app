@@ -18,6 +18,11 @@ a.active hr{
   font-style: normal;
 }
 
+/* hides scrollbar on product page */
+::-webkit-scrollbar{
+    display:none;
+}
+
 @media (max-width: 640px){
   a.active{
     background-color: black;
