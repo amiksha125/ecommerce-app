@@ -64,9 +64,12 @@ useEffect(() => {
              <div className='flex flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[18.7%] w-full'>
                  {
                   productData.image.map((item, index) => (
-                       <img src= {item} key = {index} className = 'w-[24%] sm:w-full sm:mb-3 flex-shrink-0 cursor-pointer'alt="" />
+                       <img onClick = {() => setImage(item)} src= {item} key = {index} className = 'w-[24%] sm:w-full sm:mb-3 flex-shrink-0 cursor-pointer'alt="" />
                   ))
                  }
+             </div>
+             <div className='w-full sm:w-[80%]'>
+              <img src= {image}  className= 'w-full h-auto'alt="" />
              </div>
           </div>
         </div>
