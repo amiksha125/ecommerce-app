@@ -5,12 +5,14 @@ import React, { useContext, useState } from 'react';
 import { ShopContext } from '../context/ShopContext';
 
 
+
 const Navbar = () => {
     // define a state, whenever click menu icon the visible state will be true
     const [visible, setVisible] = useState(false);
 
     //use search state
     const {setShowSearch} = useContext(ShopContext);
+    const { getCartcount } = useContext(ShopContext);
   return (
     <div className='flex items-center justify-between py-5 font-medium'>
 
@@ -57,7 +59,7 @@ const Navbar = () => {
 
             <Link to='/cart' className='relative'>
                <img src={assets.cart_icon} className = 'w-5 min-w-5'alt="" />
-               <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]'>10</p>
+               <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]'>{getCartcount()}</p>
             </Link>
 
             {/* make menu visible via menu bar icon when the screen size is small */}
