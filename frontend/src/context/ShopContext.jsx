@@ -60,12 +60,22 @@ const ShopContextProvider = (props) => {
     useEffect(() => {
          console.log(cartItems);
     }, [cartItems])//whenever this, [cartItems] get modified useEfffect will execute
+    
+   //delete icon functionality on your cart page
+    const updateQuantity = async (itemId, size, quantity) => {
+      //create copy of cart items
+      let cartData =  structuredClone(cartItems);
+     //we will receive quantity as 0
+      cartData[itemId][size] = quantity;
+
+      setCartItems(cartData);
+    }
 
     const value = {
          products, currency, delivery_fee,
          search, setSearch, showSearch, setShowSearch,
          cartItems, addToCart, 
-         getCartcount
+         getCartcount, updateQuantity
     }
 
     return (
