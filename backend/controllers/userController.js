@@ -25,7 +25,7 @@ const registerUser = async (req, res) => {
        const normalizedEmail = email.toLowerCase(); 
        //checking user already exists or not
 
-       const exists = await userModel.findOne({email})
+       const exists = await userModel.findOne({email: normalizedEmail})
 
        if(exists){
          return res.json({success: false, msg: "user already exists"})
