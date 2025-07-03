@@ -1,7 +1,15 @@
+// import userModel from "../models/userModel.js";
+// import validator from 'validator';
+// import bcrypt from 'bcrypt'
+// import jwt from 'jsonwebtoken';
+// import { use } from "react";
+// import React from "react";
+
 import userModel from "../models/userModel.js";
 import validator from 'validator';
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken';
+
 
 const createToken = (id) => {
   //token generated from jwt 
@@ -11,6 +19,32 @@ const createToken = (id) => {
 
 //Route for user login
 const loginUser = async (req, res) => {
+  try{
+    const {email, password} = req.body;
+
+    //if user is not awailable with this email generate:
+    const user = await userModel.findOne({email});
+
+    if(!user){
+       return res.json({success: false, msg: "user does not exists"})
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password)
+    //check if password is same or not
+
+    if(isMatch){
+      //if true send token to user
+      const token = createToken(user._id);
+      // return an object 
+      res.json({success: true, token});
+
+    } else {
+      res.json({success: false, message: 'Invalid Credentials'})
+    }
+  } catch(err){
+       console.log(err);
+       res.json({success: false, message: err.message})
+  }
 
 }
 
@@ -37,7 +71,7 @@ const registerUser = async (req, res) => {
        }
 
        if(password.length < 8){
-         return res.json({success: false, msg: "please enter a string password"})
+         return res.json({success: false, msg: "please enter a strong password"})
        }
 
        //If i reach here means email & password are valid , create account now
