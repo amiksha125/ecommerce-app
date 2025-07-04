@@ -2,6 +2,9 @@
 
 //function for adding product
 const addProduct = async (req, res) => {
+// before addProduct function create a multer middleware, so that if we send any file as form data then this will send using multer
+
+
      
 }
 
