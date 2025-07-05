@@ -15,7 +15,8 @@ const productSchema = new mongoose.Schema({
 })
 
 //create model
-const productModel = mongoose.moodels.product || mongoose.model("product", productSchema)
+const productModel = mongoose.models.product || mongoose.model("product", productSchema)
+
 //the model will be created once, and if its already available then its used, singleton
 
 export default productModel;
