@@ -1,10 +1,14 @@
 import React from 'react'
+import Navbar from './Components/Navbar'
 
 const App = () => {
   return (
-    <div>
+    <>
+    {/* //above tag means a fragment */}
+
+    <Navbar />
       
-    </div>
+    </>
   )
 }
 
