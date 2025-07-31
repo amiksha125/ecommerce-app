@@ -1,7 +1,8 @@
 import React, { createContext, useEffect, useState } from 'react'
-import { products } from '../assets/assets';
+// import { products } from '../assets/assets';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export const ShopContext = createContext();
 
@@ -10,11 +11,15 @@ const ShopContextProvider = (props) => {
 
     const currency = '$';
     const delivery_fee = 10;
+    //create backend url variable
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     //search icon 
     const [search, setSearch] = useState('');
     const [showSearch, setShowSearch] = useState(false);
     const [cartItems, setCartItems] = useState({});
     const navigate = useNavigate();
+    //state variable for backend product data
+    const [products, setProducts] = useState([]);
 
     const addToCart = async(itemId, size) => {
      //if size is not selected , create a toast
@@ -60,7 +65,7 @@ const ShopContextProvider = (props) => {
     }
 
     useEffect(() => {
-         console.log(cartItems);
+        // console.log(cartItems);
     }, [cartItems])//whenever this, [cartItems] get modified useEfffect will execute
     
    //delete icon functionality on your cart page
@@ -85,19 +90,38 @@ const ShopContextProvider = (props) => {
                       totalAmount += itemInfo.price * cartItems[items][item];
                     }
                } catch(error){
-
+                    
                }
           }
        }
        return totalAmount;
      }
 
+     const getProductData = async () => {
+
+          try{
+               console.log(import.meta.env.VITE_BACKEND_URL);
+               const response = await axios.get(backendUrl + '/api/product/list');
+               console.log(response.data);
+               console.log('Status:', response.status);
+  
+               
+          } catch (err){
+              
+          }
+
+     }
+
+     useEffect(() => {
+       getProductData();
+     }, [])
+
     const value = {
          products, currency, delivery_fee,
          search, setSearch, showSearch, setShowSearch,
          cartItems, addToCart, 
          getCartcount, updateQuantity,
-         getCartAmount, navigate
+         getCartAmount, navigate, backendUrl
     }
 
     return (
