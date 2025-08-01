@@ -20,6 +20,8 @@ const ShopContextProvider = (props) => {
     const navigate = useNavigate();
     //state variable for backend product data
     const [products, setProducts] = useState([]);
+    //state variable for login token
+    const [token, setToken] = useState('');
 
     const addToCart = async(itemId, size) => {
      //if size is not selected , create a toast
@@ -128,7 +130,7 @@ const ShopContextProvider = (props) => {
          search, setSearch, showSearch, setShowSearch,
          cartItems, addToCart, 
          getCartcount, updateQuantity,
-         getCartAmount, navigate, backendUrl
+         getCartAmount, navigate, backendUrl, token, setToken
     }
 
     return (
