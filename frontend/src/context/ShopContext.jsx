@@ -103,11 +103,18 @@ const ShopContextProvider = (props) => {
                console.log(import.meta.env.VITE_BACKEND_URL);
                const response = await axios.get(backendUrl + '/api/product/list');
                console.log(response.data);
-               console.log('Status:', response.status);
+                //console.log('Status:', response.status);
+
+               if(response.data.success){
+                    setProducts(response.data.products);
+               } else {
+                    toast.error(response.data.message);
+               }
   
                
           } catch (err){
-              
+              console.log(err);
+              toast.error(err.message)          
           }
 
      }

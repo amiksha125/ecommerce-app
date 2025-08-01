@@ -12,7 +12,7 @@ const LatestCollection = () => {
 //useEffect is a hook to store data
   useEffect(() => {
      setLatestProducts(products.slice(0, 10));
-  }, []) //, [] is an empty dependency array
+  }, [products]) //, [] is an empty dependency array
   //to map this data , create a productitem.jsx component 
 
   return (

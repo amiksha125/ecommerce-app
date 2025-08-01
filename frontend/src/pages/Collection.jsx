@@ -83,7 +83,7 @@ const Collection = () => {
 
 useEffect(() => {
   applyFilter();
-}, [category, subCategory, search, showSearch]) //whenever these dependency array elem value changes applyFilter() is called
+}, [category, subCategory, search, showSearch, products]) //whenever these dependency array elem value changes applyFilter() is called
 
 useEffect(() => {
   sortProduct();
