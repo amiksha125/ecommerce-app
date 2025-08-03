@@ -12,6 +12,9 @@ const Cart = () => {
   useEffect(() => {
      //when cart page is loaded combine product data and cartItems data to create array
 
+     if (products.length > 0) {
+
+      
      const tempData = [];
      for(const items in cartItems){
       for (const item in cartItems[items]){
@@ -26,7 +29,10 @@ const Cart = () => {
      }
     //  console.log(tempData);
     setcartData(tempData);
-  }, [cartItems])
+      
+     }
+
+  }, [cartItems, products])
   return (
     <div className='border-t pt-14'>
      <div className='text-2xl mb-3'>
