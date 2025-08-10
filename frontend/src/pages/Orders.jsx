@@ -1,9 +1,49 @@
 import React, { useContext } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import Title from '../components/Title';
+import { use } from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import axios from 'axios';
 const Orders = () => {
 
-  const {products, currency} = useContext(ShopContext);
+  const { backendUrl, token , currency} = useContext(ShopContext);
+
+  const [orderData, setOrderData] = useState([]);
+
+  const loadOrderData = async () => {
+     try {
+
+      if (!token) {
+        return null;
+      }
+
+       const res = await axios.post(backendUrl + '/api/order/userorders', {}, {headers: {token}});
+      //  console.log(res.data);
+      if(res.data.success){
+        let allOrdersItems = []
+        res.data.orders.map((item) => {
+          item.items.map( (i) => {
+            i['status'] = item.status;
+            i['payment'] = item.payment;
+            i['paymentMethod'] = item.paymentMethod;
+            i['date'] = item.date;
+
+            allOrdersItems.push(i)
+          })
+        })
+        console.log(allOrdersItems);
+        
+      }
+      
+     } catch (error) {
+      
+     }
+  }
+
+  useEffect(() => {
+     loadOrderData();
+  }, [token])
   return (
     <div className='border-t pt-16'>
       <div className='text-2xl'>
@@ -12,7 +52,7 @@ const Orders = () => {
 
       <div>
         {
-          products.slice(1,4).map((item, index) => (
+          orderData.map((item, index) => (
             <div key= {index} className='py-4 border-t border-b text-gray-700 flex flex-col md:flex-row md:items-center md:justify-between gap-4'>
                <div className='flex items-startgap-6 text-sm'>
                  <img src = {item.image[0]} className='w-16 sm:w-20' alt="" />
