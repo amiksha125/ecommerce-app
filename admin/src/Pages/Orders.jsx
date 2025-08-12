@@ -30,7 +30,23 @@ const Orders = ({ token }) => {
     } catch (error) {
       toast.error(error.message);
     }
-  };
+  }
+
+  const statusHandler = async (event, orderId) => {
+   try {
+    const response = await axios.post(backendUrl + '/api/order/status', {orderId, status: event.target.value}, {headers: {token}})
+    if (response.data.success) {
+      await fetchAllOrders(); 
+       toast.success("Status updated successfully");  
+    } else {
+      toast.error(response.data.message);
+    }
+    
+   } catch (error) {
+    console.log(error);
+    toast.error(response.data.message); 
+   }
+  }
 
   useEffect(() => {
     fetchAllOrders();
@@ -85,12 +101,12 @@ const Orders = ({ token }) => {
                 <p className="text-smsm:text-[15px]">
                   {currency} {order.amount}
                 </p>
-                <select value = {order.status}className="p-2 font-semibold">
-                  <option>Order Placed</option>
-                  <option>Packing</option>
-                  <option>Shipped</option>
-                  <option>Out for delivery</option>
-                  <option>Delivered</option>
+                <select onChange = {(event) => statusHandler(event, order._id) }value = {order.status} className="p-2 font-semibold">
+                  <option value = "Order Placed">Order Placed</option>
+                  <option value = "Packing">Packing</option>
+                  <option value= "Shipped">Shipped</option>
+                  <option value = "Out for delivery">Out for delivery</option>
+                  <option value = "Delivered">Delivered</option>
                 </select>
               
             </div>
